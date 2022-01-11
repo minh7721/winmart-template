@@ -1,5 +1,4 @@
 <?php
-session_start();
 include('./function.php');
 ?>
 
@@ -56,12 +55,7 @@ include('./function.php');
                             </svg>
                             Giỏ hàng
                         </a>
-                        <?php
-                        if (isset($_SESSION['muaThanhCong'])) {
-                            echo $_SESSION['muaThanhCong'];
-                            unset($_SESSION['muaThanhCong']);
-                        }
-                        ?>
+
                         <!-- Notifications -->
                         <!-- <a class="fs-4 me-5 text-reset dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-bell"></i>
@@ -166,107 +160,117 @@ include('./function.php');
         </div>
     </div>
     <!-- End header dòng 2 -->
-    <div class="container-fluid pb-5" style="background-color: #f1f0f1;">
-        <!-- Start slider -->
-        <div class="container">
-            <div id="carouselExampleIndicators" class="carousel slide" data-mdb-ride="carousel">
-                <div class="carousel-indicators">
-                    <button type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide-to="2" aria-label="Slide 3"></button>
-                    <button type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide-to="3" aria-label="Slide 4"></button>
-                </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="./img/img-1.jpg" class="d-block w-100" alt="..." />
-                    </div>
-                    <div class="carousel-item">
-                        <img src="./img/img-2.jpg" class="d-block w-100" alt="..." />
-                    </div>
-                    <div class="carousel-item">
-                        <img src="./img/img-3.jpg" class="d-block w-100" alt="..." />
-                    </div>
-                    <div class="carousel-item">
-                        <img src="./img/img-4.jpg" class="d-block w-100" alt="..." />
+
+    <!-- Start content -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <div class="mt-3 mb-3">
+                    <div class="row">
+                        <div class="d-flex justify-content-between">
+                            <div class="btn text-white" style="background-color: rgba(209, 10, -16, 1); line-height: 1.5;">
+                                <a class="text-white" style="text-decoration: none;" href="./index.php">TIẾP TỤC MUA HÀNG</a>
+                            </div>
+                            <button class="btn text-white" style="font-size: 14px;color: rgba(0, 0, 0, 0.87); background-color: #aaa">
+                                Xóa giỏ hàng
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
+                <!--Start thông tin SP -->
+                <div class="row bg-white d-flex align-items-center mt-3">
+                    <input type="checkbox" name="checkAll" id="checkAll" class="col-1">
+                    <div class="col-5">
+                        Sản phẩm
+                    </div>
+                    <div class="col-2">
+                        Giá bán
+                    </div>
+                    <div class="col-2">
+                        Số lượng
+                    </div>
+                    <div class="col-2">
+                        Tổng tiền
+                    </div>
+                    <?php
+                    $k_id = 1;
+                    $showCart = showCart($k_id);
+                    if (mysqli_num_rows($showCart) > 0) {
+                        while ($row = mysqli_fetch_assoc($showCart)) {
+                    ?>
+                            <input type="checkbox" name="checkSP" id="" class="col-1 checkSP">
+                            <div class="col-2">
+                                <img src="./img/img-product/<?php echo $row['image'] ?>" alt="" style="width: 130px;">
+                            </div>
+                            <div class="col-3 d-flex flex-column">
+                                <span class="fs-6 fw-bold"><?php echo $row['nameSP'] ?></span>
+                                <span class="fs-6"><?php echo $row['donViTinh'] ?></span>
+                                <a href="" p_id="<?php echo $row['idsp'] ?>" u_id="<?php echo $row['userID'] ?>" class="xoa1SP" style="color: rgba(209, 10, -16, 1); text-decoration: none;">Xóa khỏi giỏ hàng</a>
+                            </div>
+                            <div class="col-2">
+                                <span class="giaBan giaBanSP"><?php echo $row['giaBan'] ?></span> đ
+                            </div>
+                            <div class="col-2">
+                                <input giaBan="<?php echo $row['giaBan'] ?>" p_id="<?php echo $row['idsp'] ?>" u_id="<?php echo $row['userID'] ?>" class="soLuong soLuong<?php echo $row['idsp'] ?>" type="number" value="<?php echo $row['slSPtrongGioHang'] ?>" min=1 max=10>
+                            </div>
+                            <div class="col-2">
+                                <span class="giaBanSP tongTien tongTien<?php echo $row['idsp'] ?>"></span> đ
+                            </div>
+                    <?php
+                        }
+                    } else {
+                        echo "Không có sản phẩm trong giỏ hàng";
+                    }
+
+                    ?>
+
+                </div>
+                <!-- End thông tin SP -->
+            </div>
+
+            <div class="col-3">
+                <div class="ms-3">
+                    <div class="bg-white pt-4 p-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-bold">Tạm tính: </span>
+                            <div>
+                                <span class="tamTinh giaBanSP"></span> đ
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-bold">Phí vận chuyển: </span>
+                            <div>
+                                <span class="phiVanChuyen giaBanSP">20000</span> đ
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-bold">Thành tiền: </span>
+                            <div>
+                                <span class="thanhTien giaBanSP"></span> đ
+                            </div>
+                        </div>
+
+                        <a href="./checkout.php"><button class="btn text-white w-100 mt-2" style="background-color: rgba(209, 10, -16, 1); line-height: 1.5">
+                                THANH TOÁN
+                            </button></a>
+                    </div>
+                </div>
             </div>
         </div>
-        <!-- End slider -->
-
-        <!-- Start content -->
-        <div class="container" style="margin-top: 3rem;">
-            <div class="content-items">
-                <p class="content-text">Rau củ trái cây</p>
-                <!-- Trái cây dòng 1 -->
-                <div class="row mb-3 mt-2 bg-white">
-                    <div class="d-flex justify-content-around chiTietSP">
-                        <?php
-
-                        $showAllProductsbyLH = showAllProductsbyLH("Hoa quả");
-                        if (mysqli_num_rows($showAllProductsbyLH) > 0) {
-                            while ($row = mysqli_fetch_array($showAllProductsbyLH)) {
-                        ?>
-                                <a href="./chiTietSP.php?idsp=<?php echo $row['id'] ?>" style="text-decoration: none;">
-                                    <div class="border-0 shadow-none card-sanpham card col-md me-1">
-                                        <img src="./img/img-product/<?php echo $row['image'] ?>" class="card-img-top" alt="...">
-                                        <div class="card-body card-fs-14">
-                                            <h5 class="fs-5 card-title text-dark"><?php echo $row['name'] ?></h5>
-                                            <p class="card-text text-dark mt-3">ĐVT: <?php echo $row['donViTinh'] ?></p>
-                                            <p class="card-text text-dark" style="margin-top:-1rem; font-weight: bold;"><span class="giaBanSP"><?php echo $row['giaBan'] ?></span><span> đ</span></p>
-
-                                            <a giaBan="<?php echo $row['giaBan'] ?>" p_id="<?php echo $row['id']; ?>" class="btn btn-outline-danger mt-4 btnAddCart">Thêm vào giỏ</a>
-                                        </div>
-                                    </div>
-                                </a>
-                        <?php
-                            }
-                        }
-                        ?>
-                    </div>
-                </div>
-                <!-- End trái cây dòng 1 -->
-                <!-- Start Trái cây dòng 2 -->
-                <div class="row mt-2 bg-white">
-                    <div class="d-flex justify-content-around chiTietSP">
-                        <?php
-                        $showAllProductsbyLH2 = showAllProductsbyLH("Hoa quả");
-                        if (mysqli_num_rows($showAllProductsbyLH2) > 0) {
-                            while ($row = mysqli_fetch_array($showAllProductsbyLH2)) {
-                        ?>
-                                <a href="./chiTietSP.php?idsp=<?php echo $row['id'] ?>" style="text-decoration: none;">
-                                    <div class="border-0 shadow-none card-sanpham card col-md me-1">
-                                        <img src="./img/img-product/<?php echo $row['image'] ?>" class="card-img-top" alt="...">
-                                        <div class="card-body card-fs-14">
-                                            <h5 class="fs-5 card-title text-dark"><?php echo $row['name'] ?></h5>
-                                            <p class="card-text text-dark mt-3">ĐVT: <?php echo $row['donViTinh'] ?></p>
-                                            <p class="card-text text-dark" style="margin-top:-1rem; font-weight: bold;"><span class="giaBanSP"><?php echo $row['giaBan'] ?></span><span> đ</span></p>
-                                            <a giaBan="<?php echo $row['giaBan'] ?>" p_id="<?php echo $row['id']; ?>" class="btn btn-outline-danger mt-4 btnAddCart ">Thêm vào giỏ</a>
-                                        </div>
-                                    </div>
-                                </a>
-                        <?php
-                            }
-                        }
-                        ?>
-                    </div>
-                </div>
-                <!-- End trái cây dòng 2 -->
-            </div>
-        </div>
-        <!-- End content -->
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-center text-white">
+
+
+
+
+
+
+
+    <!-- End content -->
+
+   <!-- Footer -->
+   <footer class="bg-dark text-center text-white">
         <!-- Grid container -->
         <div class="container p-4">
             <!-- Section: Social media -->
@@ -445,28 +449,102 @@ include('./function.php');
 
     <script>
         $(document).ready(function() {
-            $('.btnAddCart').click(function() {
+
+            $('.soLuong').each(function() {
+                product_id = $(this).attr('p_id');
+                soLuong = parseInt($(this).val());
+                giaBan = parseFloat($(this).attr('giaBan'));
+                $('.tongTien' + product_id).html(soLuong * giaBan);
+                $('.tongTien' + product_id).addClass('giaBanSP');
+            })
+
+            $('.soLuong').change(function() {
                 p_id = $(this).attr('p_id');
-                k_id = 1;
-                giaBan = $(this).attr('giaBan');
-                action = "addSPtoCart";
+                u_id = $(this).attr('u_id');
+                soLuong = parseInt($(this).val());
+                giaBan = parseFloat($(this).attr('giaBan'));
+                action = "Thay đổi số lượng";
+
+                // product_id = $(this).attr('p_id');
+                $('.tongTien' + p_id).html(soLuong * giaBan);
                 $.ajax({
-                    url: "product_action.php",
+                    url: "./cart_action.php",
                     method: "POST",
                     data: {
                         p_id: p_id,
-                        k_id: k_id,
-                        giaBan: giaBan,
+                        u_id: u_id,
+                        soLuong: soLuong,
                         action: action
                     },
                     success: function(ketQua) {
+                        // console.log(ketQua);
+                    }
+                })
+                var tamTinh = 0;
+                $('.tongTien').each(function() {
+                    tongTien = ($(this).html());
+                    tamTinh = tamTinh + parseFloat(tongTien);
+                })
+                $('.tamTinh').html(tamTinh)
+                $('.thanhTien').html(tamTinh + 20000);
 
+            })
+            var tamTinh = 0;
+            $('.tongTien').each(function() {
+                tongTien = ($(this).html());
+                tamTinh = tamTinh + parseFloat(tongTien);
+            })
+            $('.tamTinh').html(tamTinh);
+            $('.thanhTien').html(tamTinh + 20000);
+
+            // function getNumberWithCommas(tamTinh) {
+            //     return tamTinh.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            // }
+            $('.xoa1SP').click(function() {
+                p_id = $(this).attr('p_id');
+                u_id = $(this).attr('u_id');
+                action = "delete";
+
+                $.ajax({
+                    url: "./cart_action.php",
+                    method: "POST",
+                    data: {
+                        p_id: p_id,
+                        u_id: u_id,
+                        soLuong: soLuong,
+                        action: action
+                    },
+                    success: function(ketQua) {
+                        // console.log(ketQua);
                     }
                 })
             })
+            $('#checkAll').click(function() {
+                $('.checkSP').prop('checked', this.checked);
+                var tamTinh = 0;
+                $('.tongTien').each(function() {
+                    tongTien = ($(this).html());
+                    tamTinh = tamTinh + parseFloat(tongTien);
+                })
+                $('.tamTinh').html(tamTinh);
+                $('.thanhTien').html(tamTinh + 20000);
+            });
+            $('.checkSP').click(function() {
+                if ($(this).is(":checked")) {
+                    var isAllChecked = 0;
+                    $(".checkSP").each(function() {
+                        if (!this.checked)
+                            isAllChecked = 1;
+                    })
+                    if (isAllChecked == 0) {
+                        $("#checkAll").prop("checked", true);
+                    }
+                } else {
+                    $("#checkAll").prop("checked", false);
+                }
+            })
         })
     </script>
-
     <script>
         const hashPrice = (text) => {
             let arr = text.split('').reverse();
@@ -481,12 +559,15 @@ include('./function.php');
             });
             return newArr.reverse().join('');
         }
-        console.log(hashPrice("1000"));
+        // console.log(hashPrice("1000"));
         const arr = Array.from(document.querySelectorAll(".giaBanSP"));
-        arr.forEach((e) => {
-            let number = e.textContent;
-            e.textContent = hashPrice(number);
-        })
+        window.onload = () => {
+            arr.forEach((e) => {
+                let number = e.textContent;
+                e.textContent = hashPrice(number);
+            });
+        }
+
     </script>
 </body>
 

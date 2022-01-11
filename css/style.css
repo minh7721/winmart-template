@@ -47,9 +47,23 @@ ul{
     font-size: 24px;    
 }
 .card-fs-14 p{
-    font-size: 34px;    
+    font-size: 14px;    
 }
 
-.testCss{
-    font-size: 30px;
+/* CSS for Rau Cu Qua */
+.box-1{
+    background-color: #f1f0f1;
+    height: 38px;
+    width: 216px;
+    margin-top: 12px;
+    margin-right: 12px;
+    padding: 8px 12px;
+}
+
+.box-1:hover{
+    border: 1px solid red;
+}
+
+.chiTietSP>a{
+    background-color: red;
 }

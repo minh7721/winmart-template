@@ -1,5 +1,4 @@
 <?php
-session_start();
 include('./function.php');
 ?>
 
@@ -27,6 +26,11 @@ include('./function.php');
         body {
             font-family: Roboto, sans-serif;
             font-size: 14px;
+        }
+
+        .border-input-info {
+            border: 1px solid #616568;
+            border-radius: 3px;
         }
     </style>
 </head>
@@ -56,12 +60,7 @@ include('./function.php');
                             </svg>
                             Giỏ hàng
                         </a>
-                        <?php
-                        if (isset($_SESSION['muaThanhCong'])) {
-                            echo $_SESSION['muaThanhCong'];
-                            unset($_SESSION['muaThanhCong']);
-                        }
-                        ?>
+
                         <!-- Notifications -->
                         <!-- <a class="fs-4 me-5 text-reset dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-bell"></i>
@@ -166,107 +165,107 @@ include('./function.php');
         </div>
     </div>
     <!-- End header dòng 2 -->
-    <div class="container-fluid pb-5" style="background-color: #f1f0f1;">
-        <!-- Start slider -->
+
+    <!-- Start content -->
+
+    <div class="container-fluid" style="background-color: #f7f7f7">
         <div class="container">
-            <div id="carouselExampleIndicators" class="carousel slide" data-mdb-ride="carousel">
-                <div class="carousel-indicators">
-                    <button type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide-to="2" aria-label="Slide 3"></button>
-                    <button type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide-to="3" aria-label="Slide 4"></button>
+            <!-- <form method="POST"> -->
+            <div class="row">
+                <p class="mt-3" style="font-size: 25px; font-weight: 500;">Thanh toán</p>
+                <p class="mt-2" style="font-weight: 500; text-transform: uppercase;">LỰA CHỌN HÌNH THỨC THANH TOÁN</p>
+                <div class="mt-2 bg-white p-3" style="border: 1px solid #ccc;">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            Thanh toán bằng ví MOMO
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            Thanh toán bằng ngân hàng
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            Thanh toán sau khi nhận hàng
+                        </label>
+                    </div>
                 </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="./img/img-1.jpg" class="d-block w-100" alt="..." />
+                <p class="mt-3" style="font-weight: 500; text-transform: uppercase;">ĐỊA CHỈ NHẬN HÀNG</p>
+                <!-- Nhập thông tin nhận hàng -->
+                <div class="mt-2 bg-white p-3" style="border: 1px solid #ccc;">
+                    <div class="row">
+                        <div class="d-flex justify-content-between" style="height: 34px;">
+                            <p class="col-3 mt-2">Họ tên<span style="color: red;">*</span>
+                            </p>
+                            <input maxlength="30" minlength="1" required class="hoTen col-9 p-2 border-input-info" type="text" placeholder="Nhập họ tên đầy đủ">
+                        </div>
                     </div>
-                    <div class="carousel-item">
-                        <img src="./img/img-2.jpg" class="d-block w-100" alt="..." />
+
+                    <div class="row">
+                        <div class="d-flex justify-content-between mt-3" style="height: 34px;">
+                            <p class=" col-3 mt-2">Số điện thoại<span style="color: red;">*</span></p>
+                            <input maxlength="12" minlength="1" required class="soDienThoai col-9 p-2 border-input-info" type="tel" placeholder="Nhập số điện thoại">
+                        </div>
                     </div>
-                    <div class="carousel-item">
-                        <img src="./img/img-3.jpg" class="d-block w-100" alt="..." />
+
+                    <div class="row">
+                        <div class="d-flex justify-content-between mt-3" style="height: 34px;">
+                            <p class="col-3 mt-2">Địa chỉ<span style="color: red;">*</span></p>
+                            <input required class="diaChi col-9 p-2 border-input-info" type="text" placeholder="Nhập địa chỉ">
+                        </div>
                     </div>
-                    <div class="carousel-item">
-                        <img src="./img/img-4.jpg" class="d-block w-100" alt="..." />
+
+                    <div class="row">
+                        <div class="d-flex justify-content-between mt-3" style="">
+                            <p class="col-3 mt-2">Ghi chú</p>
+                            <div class="col-9">
+                                <textarea class="w-100 p-2 border-input-info" placeholder="Khách hàng có những yêu cầu khác vui lòng nhập vào đây để cửa hàng có thể phục vụ tốt nhất" id="floatingTextarea2" style="height: 100px"></textarea>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </div>
-        <!-- End slider -->
 
-        <!-- Start content -->
-        <div class="container" style="margin-top: 3rem;">
-            <div class="content-items">
-                <p class="content-text">Rau củ trái cây</p>
-                <!-- Trái cây dòng 1 -->
-                <div class="row mb-3 mt-2 bg-white">
-                    <div class="d-flex justify-content-around chiTietSP">
-                        <?php
-
-                        $showAllProductsbyLH = showAllProductsbyLH("Hoa quả");
-                        if (mysqli_num_rows($showAllProductsbyLH) > 0) {
-                            while ($row = mysqli_fetch_array($showAllProductsbyLH)) {
-                        ?>
-                                <a href="./chiTietSP.php?idsp=<?php echo $row['id'] ?>" style="text-decoration: none;">
-                                    <div class="border-0 shadow-none card-sanpham card col-md me-1">
-                                        <img src="./img/img-product/<?php echo $row['image'] ?>" class="card-img-top" alt="...">
-                                        <div class="card-body card-fs-14">
-                                            <h5 class="fs-5 card-title text-dark"><?php echo $row['name'] ?></h5>
-                                            <p class="card-text text-dark mt-3">ĐVT: <?php echo $row['donViTinh'] ?></p>
-                                            <p class="card-text text-dark" style="margin-top:-1rem; font-weight: bold;"><span class="giaBanSP"><?php echo $row['giaBan'] ?></span><span> đ</span></p>
-
-                                            <a giaBan="<?php echo $row['giaBan'] ?>" p_id="<?php echo $row['id']; ?>" class="btn btn-outline-danger mt-4 btnAddCart">Thêm vào giỏ</a>
-                                        </div>
+                <!-- Tóm tắt -->
+                <div class="mt-3 bg-white p-3 mb-5" style="border: 1px solid #ccc;">
+                    <p>Tóm tắt: Khách hàng đặt đơn hàng giá trị 152.562 ₫ gồm 2 sản phẩm với số điện thoại chọn thanh toán khi nhận hàng, giao hàng tận nơi</p>
+                    <div class="d-flex justify-content-center">
+                        <input name="btnThanhToan" type="submit" value="Thanh toán" class="btnThanhToan btn text-white mb-3 border-0" style="font-size: 18px; font-weight: 500; background-color: rgb(237, 28, 36); height: 40px; width: 300px;" data-bs-toggle="modal" data-bs-target="#modalMuaOK">
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalMuaOK" tabindex="-1" aria-labelledby="modalMuaOKLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalMuaOKLabel">Thông báo</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                </a>
-                        <?php
-                            }
-                        }
-                        ?>
-                    </div>
-                </div>
-                <!-- End trái cây dòng 1 -->
-                <!-- Start Trái cây dòng 2 -->
-                <div class="row mt-2 bg-white">
-                    <div class="d-flex justify-content-around chiTietSP">
-                        <?php
-                        $showAllProductsbyLH2 = showAllProductsbyLH("Hoa quả");
-                        if (mysqli_num_rows($showAllProductsbyLH2) > 0) {
-                            while ($row = mysqli_fetch_array($showAllProductsbyLH2)) {
-                        ?>
-                                <a href="./chiTietSP.php?idsp=<?php echo $row['id'] ?>" style="text-decoration: none;">
-                                    <div class="border-0 shadow-none card-sanpham card col-md me-1">
-                                        <img src="./img/img-product/<?php echo $row['image'] ?>" class="card-img-top" alt="...">
-                                        <div class="card-body card-fs-14">
-                                            <h5 class="fs-5 card-title text-dark"><?php echo $row['name'] ?></h5>
-                                            <p class="card-text text-dark mt-3">ĐVT: <?php echo $row['donViTinh'] ?></p>
-                                            <p class="card-text text-dark" style="margin-top:-1rem; font-weight: bold;"><span class="giaBanSP"><?php echo $row['giaBan'] ?></span><span> đ</span></p>
-                                            <a giaBan="<?php echo $row['giaBan'] ?>" p_id="<?php echo $row['id']; ?>" class="btn btn-outline-danger mt-4 btnAddCart ">Thêm vào giỏ</a>
-                                        </div>
+                                    <div class="modal-body">
+                                        Bạn có chắc muốn mua 2 sản phẩm này với giá 100.000đ chưa;
                                     </div>
-                                </a>
-                        <?php
-                            }
-                        }
-                        ?>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" style="font-size: 18px; font-weight: 500; height: 40px;" data-bs-dismiss="modal">Hủy</button>
+                                        <button data-bs-toggle="modal" data-bs-target="#thongBaoThanhCong" type="button" class="btnXacNhan btn text-white" style="font-size: 18px; font-weight: 500; background-color: rgb(237, 28, 36); height: 40px;">Xác nhận</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="showThongBao">
+
+                        </div>
                     </div>
                 </div>
-                <!-- End trái cây dòng 2 -->
             </div>
+            <!-- </form> -->
         </div>
-        <!-- End content -->
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-center text-white">
+    <!-- End content -->
+
+  <!-- Footer -->
+  <footer class="bg-dark text-center text-white">
         <!-- Grid container -->
         <div class="container p-4">
             <!-- Section: Social media -->
@@ -443,51 +442,27 @@ include('./function.php');
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
+
     <script>
         $(document).ready(function() {
-            $('.btnAddCart').click(function() {
-                p_id = $(this).attr('p_id');
-                k_id = 1;
-                giaBan = $(this).attr('giaBan');
-                action = "addSPtoCart";
-                $.ajax({
-                    url: "product_action.php",
-                    method: "POST",
-                    data: {
-                        p_id: p_id,
-                        k_id: k_id,
-                        giaBan: giaBan,
-                        action: action
-                    },
-                    success: function(ketQua) {
-
-                    }
-                })
+            $('.btnXacNhan').click(function() {
+                $('.showThongBao').html(
+                    `
+                        <!-- Modal -->
+                        <div class="modal fade" id="thongBaoThanhCong" tabindex="-1" aria-labelledby="thongBaoThanhCongLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-body text-center" style="font-size: 18px;">
+                            <i class="fas fa-check-circle text-success"></i> Mua hàng thành công!
+                            </div>
+                            <div class="d-flex justify-content-center mb-3">
+                                <a href="./index.php" type="button" class="btnMuaOK btn text-white" style="font-size: 18px; font-weight: 500; background-color: rgb(237, 28, 36); height: 40px; width:200px;">Trang chủ</a>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    `
+                );
             })
         })
     </script>
-
-    <script>
-        const hashPrice = (text) => {
-            let arr = text.split('').reverse();
-            const newArr = [];
-            arr.forEach((e, i) => {
-                if ((i) % 3 === 0 && i !== 0) {
-                    newArr.push('.');
-                    newArr.push(e);
-                } else {
-                    newArr.push(e);
-                }
-            });
-            return newArr.reverse().join('');
-        }
-        console.log(hashPrice("1000"));
-        const arr = Array.from(document.querySelectorAll(".giaBanSP"));
-        arr.forEach((e) => {
-            let number = e.textContent;
-            e.textContent = hashPrice(number);
-        })
-    </script>
-</body>
-
-</html>
